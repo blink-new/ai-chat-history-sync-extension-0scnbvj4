@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "AI Chat History Sync",
+  "version": "1.0.0",
+  "description": "Synchronize conversation history across ChatGPT, Claude, Google Gemini, and Grok",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "background"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://grok.x.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*"],
+      "js": ["content-chatgpt.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content-claude.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["content-gemini.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://grok.x.com/*"],
+      "js": ["content-grok.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "AI Chat History Sync"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  }
+}

@@ -1,0 +1,208 @@
+/* Chrome Extension Popup Styles */
+.extension-popup {
+  width: 400px;
+  height: 600px;
+  background: white;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header gradient */
+.gradient-header {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+}
+
+.gradient-header .text-muted-foreground {
+  color: rgb(255 255 255 / 80%) !important;
+}
+
+/* Platform cards */
+.platform-card {
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+.platform-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  border-color: #d1d5db;
+}
+
+.platform-icon {
+  font-size: 16px;
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
+/* Sync progress animation */
+.sync-progress {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 100%;
+  }
+
+  50% {
+    opacity: 80%;
+  }
+}
+
+/* Conversation items */
+.conversation-item {
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #f3f4f6;
+  background: white;
+}
+
+.conversation-item:hover {
+  border-color: #e5e7eb;
+  background: #fafafa;
+  transform: translateX(2px);
+}
+
+/* Custom scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Tab animations */
+.tabs-list {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.tabs-trigger {
+  transition: all 0.2s ease-in-out;
+  color: #64748b;
+}
+
+.tabs-trigger[data-state="active"] {
+  background: white;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 10%);
+}
+
+/* Button enhancements */
+.btn-sync {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-sync:disabled {
+  opacity: 60%;
+  cursor: not-allowed;
+}
+
+.btn-sync:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+/* Premium styling */
+.premium-gradient {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+}
+
+.premium-card {
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #8b5cf6, #6366f1) border-box;
+}
+
+/* Status indicators */
+.status-active {
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 100%;
+  }
+
+  50% {
+    opacity: 60%;
+  }
+}
+
+/* Loading states */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Micro-interactions */
+.hover-lift {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-1px);
+}
+
+/* Progress bar enhancements */
+.progress-bar {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Toast positioning for extension */
+.toast-viewport {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 300px;
+}
+
+/* Responsive adjustments for extension */
+@media (width <= 420px) {
+  .extension-popup {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .extension-popup {
+    background: #1a1a1a;
+    color: #fff;
+  }
+  
+  .platform-card {
+    background: #2a2a2a;
+    border-color: #404040;
+  }
+  
+  .platform-card:hover {
+    background: #333;
+    border-color: #505050;
+  }
+}
