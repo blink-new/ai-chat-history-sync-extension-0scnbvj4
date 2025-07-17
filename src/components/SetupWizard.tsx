@@ -17,6 +17,7 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
   const [hasSignedIn, setHasSignedIn] = useState(false);
+  const [isWebPreview, setIsWebPreview] = useState(false);
 
   const platforms = [
     {
@@ -51,9 +52,18 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
 
   // Monitor authentication state
   useEffect(() => {
+    // Check if we're in web preview mode
+    const isPreview = !window.chrome?.runtime?.id;
+    setIsWebPreview(isPreview);
+    
     const unsubscribe = blink.auth.onAuthStateChanged((state) => {
       setIsAuthenticated(state.isAuthenticated);
       setAuthLoading(state.isLoading);
+      
+      // In web preview, if already authenticated, mark as signed in
+      if (isPreview && state.isAuthenticated && !state.isLoading) {
+        setHasSignedIn(true);
+      }
       
       // If user was not authenticated before and now is, they must have signed in
       if (!isAuthenticated && state.isAuthenticated && !state.isLoading) {
@@ -92,12 +102,24 @@ export function SetupWizard({ onComplete }: SetupWizardProps) {
               <div className="space-y-2">
                 <h3 className="font-semibold">Authentication Complete!</h3>
                 <p className="text-sm text-muted-foreground">
-                  Proceeding to setup your AI conversation sync...
+                  {isWebPreview 
+                    ? "Web preview mode - authentication already active"
+                    : "Proceeding to setup your AI conversation sync..."
+                  }
                 </p>
-                <div className="flex items-center justify-center space-x-2 mt-3">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
-                  <span className="text-xs text-muted-foreground">Setting up...</span>
-                </div>
+                {!isWebPreview && (
+                  <div className="flex items-center justify-center space-x-2 mt-3">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                    <span className="text-xs text-muted-foreground">Setting up...</span>
+                  </div>
+                )}
+                {isWebPreview && (
+                  <div className="bg-blue-50 p-3 rounded-lg mt-3">
+                    <p className="text-xs text-blue-700">
+                      💡 In the actual Chrome extension, you would sign in here first
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           )}
